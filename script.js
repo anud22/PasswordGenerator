@@ -40,22 +40,23 @@ var password = {
   setPassword: function(password){
     this.password = password;
   },
+  //Create password based on length and type of characters specified by user
   createPassword: function(charUtility) {
     while (this.pwdLength > 0) {
 
-      if (this.lowercase) {
+      if (this.lowercase && this.pwdLength > 0) {
         this.password += charUtility.getRandomLowercase();
         --this.pwdLength;
       }
-      if (this.uppercase) {
+      if (this.uppercase && this.pwdLength > 0) {
         this.password += charUtility.getRandomUppercase();
         --this.pwdLength;
       }
-      if (this.specialCharacters) {
+      if (this.specialCharacters && this.pwdLength > 0) {
         this.password += charUtility.getRandomSpecialCharacter();
         --this.pwdLength;
       }
-      if (this.numeric) {
+      if (this.numeric && this.pwdLength > 0) {
         this.password += charUtility.getRandomNumericCharacter();
         --this.pwdLength;
       }
@@ -63,17 +64,18 @@ var password = {
     alert(this.password);
     return this.password;
   },
+  //initialize this object properties
   initialize: function(){
-    setPasswordLength(0);
+    this.setPwdLength(0);
     this.setLowercase(false);
     this.setUppercase(false);
     this.setNumeric(false);
     this.setSpecialCharacters(false);
-    this.password("");
+    this.setPassword("");
   }
 };
 
-//Utility object to generate a lowercase ,uppercase, numeric, special characters  
+//Utility object to generate a random lowercase ,uppercase, numeric, special character 
 var charUtility = {
   getRandomLowercase: function () {
     var lowercaseCharAscii = Math.floor(Math.random() * 26) + 97;
@@ -101,20 +103,17 @@ var charUtility = {
 
 }
 
+//Generate password based on user input
 function generatePassword() {
   password.initialize();
   var length = setPasswordLength(password);
   if (length == null || !setPasswordCharacters(password)) {
     return "";
   }
-
-  alert("Lowercase " + password.lowercase);
-  alert("uppercase " + password.uppercase);
-  alert("special " + password.specialCharacters);
-  alert("numeric " + password.numeric);
   return password.createPassword(charUtility);
 }
 
+//Set password length based on user input
 function setPasswordLength(password) {
   var pwdLength;
 
@@ -132,6 +131,7 @@ function setPasswordLength(password) {
   return pwdLength;
 }
 
+//Set password characters based on user input
 function setPasswordCharacters(password) {
   var lowercaseReqd = false;
   var uppercaseReqd = false;
@@ -154,16 +154,22 @@ function setPasswordCharacters(password) {
   return true;
 }
 
+//Prompt user to check if password should include lowercase characters
 function getLowercaseInput() {
   return (confirm("Please click Ok if you want lowercase in password"));
 }
 
+//Prompt user to check if password should include uppercase characters
 function getUppercaseInput() {
   return (confirm("Please click Ok if you want uppercase in password"));
 }
+
+//Prompt user to check if password should include special characters
 function getSpecialCharactersInput() {
   return (confirm("Please click Ok if you want special characters in password"));
 }
+
+//Prompt user to check if password should include numeric characters
 function getNumericInput() {
   return (confirm("Please click Ok if you want numbers in password"));
 }
