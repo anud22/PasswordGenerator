@@ -13,26 +13,27 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 var password = {
-  length: 0,
+  pwdLength: 0,
   lowercase: false,
   uppercase: false,
   numeric: false,
   specialCharacters: false,
   password: "",
-  setPasswordLength: function () {
+  setPwdLength: function (pwdLength) {
+    this.pwdLength = pwdLength;
+  },
+  setLowercase: function (lowercase) {
+    this.lowercase = lowercase;
 
   },
-  setLowercase: function () {
-
+  setUppercase: function (uppercase) {
+    this.uppercase = uppercase;
   },
-  setUppercase: function () {
-
+  setNumeric: function (numeric) {
+    this.numeric = numeric;
   },
-  setNumeric: function () {
-
-  },
-  setSpecialCharacters: function () {
-
+  setSpecialCharacters: function (specialCharacters) {
+      this.specialCharacters = specialCharacters;
   },
   getPassword: function () {
 
@@ -42,15 +43,18 @@ var password = {
 
 
 function generatePassword() {
-  var length = getPasswordLengthInput();
-  if (length == null) {
-    alert("Bye");
-    return "";
+  var length = setPasswordLength(password);
+  if (length == null || !setPasswordCharacters(password)) {
+      return "";
   }
-
+ 
+  alert("Lowercase " + password.lowercase);
+  alert("uppercase " + password.uppercase);
+  alert("special " + password.specialCharacters);
+  alert("numeric " + password.numeric);
 }
 
-function getPasswordLengthInput() {
+function setPasswordLength(password) {
   var pwdLength;
 
   while (isNaN(pwdLength) || pwdLength < 8 || pwdLength > 128) {
@@ -63,9 +67,42 @@ function getPasswordLengthInput() {
       alert("Please choose a number between 8 and 128");
     }
   }
+  password.setPwdLength(this.pwdLength);
   return pwdLength;
 }
 
-function checkLowercase(){
+function setPasswordCharacters(password) {
+  var lowercaseReqd = false;
+  var uppercaseReqd = false;
+  var specialCharsReqd = false;
+  var numericReqd = false;
+  while (!(lowercaseReqd || uppercaseReqd || specialCharsReqd || numericReqd)) {
+    input = confirm("Please choose if you want lowercase, uppercase, special characters, numbers in the password. Choose at least one type");
+    if(!input){
+      return false;
+    }
+    lowercaseReqd = getLowercaseInput();
+    uppercaseReqd = getUppercaseInput();
+    numericReqd = getNumericInput();
+    specialCharsReqd = getSpecialCharactersInput();
+  }
+  password.setLowercase(lowercaseReqd);
+  password.setUppercase(uppercaseReqd);
+  password.setNumeric(numericReqd);
+  password.setSpecialCharacters(specialCharsReqd);
+  return true;
+}
 
+function getLowercaseInput() {
+  return (confirm("Please click Ok if you want lowercase in password"));
+}
+
+function getUppercaseInput() {
+  return (confirm("Please click Ok if you want uppercase in password"));
+}
+function getSpecialCharactersInput() {
+  return (confirm("Please click Ok if you want special characters in password"));
+}
+function getNumericInput() {
+  return (confirm("Please click Ok if you want numbers in password"));
 }
