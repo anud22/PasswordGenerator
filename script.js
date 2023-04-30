@@ -61,10 +61,9 @@ var password = {
         --this.pwdLength;
       }
     }
-    alert(this.password);
     return this.password;
   },
-  //initialize this object properties
+  //initialize this object
   initialize: function(){
     this.setPwdLength(0);
     this.setLowercase(false);
@@ -80,24 +79,20 @@ var charUtility = {
   getRandomLowercase: function () {
     var lowercaseCharAscii = Math.floor(Math.random() * 26) + 97;
     var lowercaseChar = String.fromCharCode(lowercaseCharAscii);
-    console.log("lowercase : " +lowercaseChar);
     return lowercaseChar;
   },
   getRandomUppercase: function () {
     var uppercaseCharAscii = Math.floor(Math.random() * 26) + 65;
     var uppercaseChar = String.fromCharCode(uppercaseCharAscii);
-    console.log("uppercase : " +uppercaseChar);
     return uppercaseChar;
   },
   getRandomSpecialCharacter: function () {
     const specialChars = " !\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
     var specialChar = specialChars.charAt(Math.floor(Math.random() * specialChars.length));
-    console.log("special char " + specialChar);
     return specialChar;
   },
   getRandomNumericCharacter: function () {
     var number = Math.floor(Math.random() * 10);
-    console.log("number : " +number);
     return number;
   }
 
