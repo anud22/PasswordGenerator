@@ -1,6 +1,6 @@
 # *Password Generator*
 
-#### The project involve refactoring of existing code to create an application that enables employees to generate random passwords based on criteria that they’ve selected
+#### The project create an application that enables employees to generate random passwords based on criteria that they’ve selected
 <br>
 <br>
 
